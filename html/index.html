@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBlog</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/jquery/jquery.min.js"></script>
+    <script src="../js/index.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/Const.js"></script>
+</head>
+<body>
+<!--container-->
+<!--<div id="container" -->
+<!--     oncontextmenu="return false" ondragstart="return false" onselectstart="return false"-->
+<!--     onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false"-->
+<!--     onmouseup="document.selection.empty()">-->
+<div id="container">
+    <!-- the index header area -->
+    <div id="index_header">
+        <div class="index_header_head">
+            <!-- index_header_left -->
+
+            <!-- index_header_left -->
+            <div class="index_header_left">
+                <ul>
+                    <li><a href="javascript:void(0);">技术博客</a></li>
+                    <li><a href="javascript:void(0);">人物志</a></li>
+                    <li><a href="javascript:void(0);">联系我</a></li>
+                    <li><a href="javascript:void(0);">娱乐</a></li>
+                    <li><a href="javascript:void(0);">工具</a></li>
+                </ul>
+
+                <div class="search">
+                    <a href="javascript:void(0);"><img src="../images/index/search.png"></a>
+                </div>
+            </div>
+        </div>
+        <div class="search_input">
+            <input placeholder="&nbsp;请输入搜索内容...">
+        </div>
+    </div>
+
+    <!-- the index context area -->
+    <div id="index_context">
+        <div class="index_context_content">
+
+            <div class="content_header"></div>
+            <div class="content_footer">
+                <!--  最新文章 -->
+                <div class="latest_article">
+                    <span>LATEST ARTICLE</span>
+                    <hr size="1">
+                </div>
+
+                <!-- 元素部分 -->
+                <div class="article_content" v-for="item in data" onmouseover="articleDivChangeColor(this, 1)" onmouseout="articleDivChangeColor(this, 2)">
+
+                    <!--名言-->
+                    <div class="verse">
+                        <p>{{item.verse}}</p>
+                    </div>
+                    <div class="article_content_left">
+                        <img src="../images/index/0.jpeg">
+                    </div>
+                    <div class="article_content_right">
+                        <p class="title"><a href="#">{{item.title}}</a> </p>
+                        <p class="content">
+                            {{item.content}}
+                        </p>
+                    </div>
+                    <div class="tag">
+                        <div class="label">
+                            &nbsp;Java&nbsp;
+                        </div>
+                        <div class="label">
+                            &nbsp;ElasticSearch&nbsp;
+                        </div>
+                    </div>
+
+                    <!-- 作者-->
+                    <div class="author">
+                        <img src="../images/index/author.png">
+                        <span>廖程</span>
+                    </div>
+                    <!-- 阅读量-->
+                    <!-- 点赞-->
+                    <!-- 评论数-->
+                </div>
+                <div class="last_more"></div>
+            </div>
+
+        </div>
+
+        <!-- the index footer area -->
+        <div class="index_context_footer"></div>
+    </div>
+</div>
+
+<script>
+    var vue = new Vue({
+        el: "#index_context",
+        data: {
+            data: []
+        },
+        created() {
+            this.get();
+        },
+        methods: {
+            get() {
+                this.$http.get('http://106.54.213.181/blog/article/getarticlelist').then(function (res) {
+                    this.data = res.data.data;
+                }, function () {
+                    console.log('请求失败处理');
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>
