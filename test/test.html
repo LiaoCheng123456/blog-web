@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="article.css">
+    <script src="jquery.min.js"></script>
+    <script src="mditor.js"></script>
+
+</head>
+<body>
+<textarea id="md_editor">** 欢迎使用 **</textarea>
+</body>
+
+<script type="text/javascript">
+    //获取textarea dom对象
+    var ele_textarea = document.getElementById('md_editor');
+    //实例化Mditor
+    var editor = new mditor(ele_textarea);
+</script>
+</html>
