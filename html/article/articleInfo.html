@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBlog</title>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery/jquery.min.js"></script>
+    <script src="../../js/index.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="articleInfo.css">
+    <link rel="stylesheet" href="../../js/highlight/styles/default.css">
+    <link rel="stylesheet" href="../../js/highlight/styles/github.css">
+    <script src="../../js/showdown.min.js"></script>
+    <script src="../../js/highlight/highlight.pack.js"></script>
+    <script src="../../js/Const.js"></script>
+</head>
+<body>
+<div id="container">
+    <!-- the index header area -->
+    <div id="index_header">
+        <div class="index_header_head">
+            <!-- index_header_left -->
+
+            <!-- index_header_left -->
+            <div class="index_header_left">
+                <ul>
+                    <li><a href="../index.html">技术博客</a></li>
+                    <li><a href="javascript:void(0);">人物志</a></li>
+                    <li><a href="javascript:void(0);">联系我</a></li>
+                    <li><a href="javascript:void(0);">娱乐</a></li>
+                    <li><a href="javascript:void(0);">工具</a></li>
+                </ul>
+
+                <div class="search">
+                    <a href="javascript:void(0);"><img src="../../images/index/search.png"></a>
+                </div>
+            </div>
+        </div>
+        <div class="search_input">
+            <input placeholder="&nbsp;请输入搜索内容...">
+        </div>
+    </div>
+
+    <!-- the index context area -->
+    <div id="index_context">
+        <div class="index_context_content">
+
+            <div class="content_header"></div>
+            <div class="content_footer">
+                <!--  最新文章 -->
+                <div class="latest_article">
+                    <span>LATEST ARTICLE</span>
+                    <hr size="1">
+                </div>
+
+                <!--内容部分-->
+                <div class="articleInfo_content">
+                    <!--标题-->
+                    <div class="articleInfo_content_title" align="center" id="title">
+                    </div>
+
+                    <!--内容-->
+                    <div class="articleInfo_content_content" id="content">
+                    </div>
+
+                </div>
+
+                <div class="last_more"></div>
+            </div>
+
+        </div>
+        <!-- the index footer area -->
+        <div class="index_context_footer"></div>
+    </div>
+</div>
+<!--<script>-->
+<!--    var vue = new Vue({-->
+<!--        el: "#index_context",-->
+<!--        data: {-->
+<!--            title:"默认标题",-->
+<!--            content:"内容",-->
+<!--        },-->
+<!--        mounted() {-->
+<!--            this.get();-->
+<!--        },-->
+<!--        methods: {-->
+<!--            get(){-->
+<!--                //发送get请求-->
+<!--                this.$http.get(SERVER_URL+'/article/getarticle?id='+GetQueryValue('id')).then(function(res){-->
+<!--                    //创建实例-->
+<!--                    var converter = new showdown.Converter();-->
+<!--                    //进行转换-->
+<!--                    this.title = res.data.data.title;-->
+<!--                    this.content = converter.makeHtml(res.data.data.markdown);-->
+<!--                    console.log(this.content);-->
+<!--                },function() {-->
+<!--                    console.log('请求失败处理');-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--    })-->
+<!--</script>-->
+<script>
+    var temp;
+    $.ajax({
+        async: false,
+        type : "GET",
+        url : SERVER_URL+'/article/getarticle?id='+GetQueryValue('id'),
+        dataType : 'json',
+        success : function(data) {
+            //创建实例
+            var converter = new showdown.Converter();
+            //进行转换
+            var html = converter.makeHtml(data.data.markdown);
+            //展示到对应的地方  result便是id名称
+            document.getElementById("content").innerHTML = html;
+            document.getElementById("title").innerHTML = data.data.title;
+        }
+    });
+</script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

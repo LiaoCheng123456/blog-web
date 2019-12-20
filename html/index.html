@@ -26,7 +26,7 @@
             <!-- index_header_left -->
             <div class="index_header_left">
                 <ul>
-                    <li><a href="javascript:void(0);">技术博客</a></li>
+                    <li><a href="index.html">技术博客</a></li>
                     <li><a href="javascript:void(0);">人物志</a></li>
                     <li><a href="javascript:void(0);">联系我</a></li>
                     <li><a href="javascript:void(0);">娱乐</a></li>
@@ -66,9 +66,10 @@
                         <img src="../images/index/0.jpeg">
                     </div>
                     <div class="article_content_right">
-                        <p class="title"><a href="#">{{item.title}}</a> </p>
-                        <p class="content">
-                            {{item.content}}
+                        <span class="title"><a :href="getArticleInfo(item.id)">{{item.title}}</a>
+                            <a :href="updateArticleInfo(item.id)"><img class="update" src="../images/index/编辑.png"></a>
+                        </span>
+                        <p class="content" v-html="item.content">
                         </p>
                     </div>
                     <div class="tag">
@@ -111,10 +112,18 @@
         methods: {
             get() {
                 this.$http.get(SERVER_URL+'/article/getarticlelist').then(function (res) {
-                    this.data = res.data.data;
+                    console.log(res);
+                    this.data = res && res.data && res.data.data ;
+
                 }, function () {
                     console.log('请求失败处理');
                 });
+            },
+            updateArticleInfo:function(id) {
+                return "article/addArticle.html?id=" + id
+            },
+            getArticleInfo:function (id) {
+                return "article/articleInfo.html?id=" + id
             }
         }
     })

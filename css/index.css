@@ -245,7 +245,7 @@ context area
 .author {
     position: relative;
     left: 31%;
-    top: 65%;
+    top: 80%;
     width: 20%;
 }
 .author img {
@@ -267,3 +267,9 @@ context area
     margin-top: 20px;
 }
 
+
+.update {
+    width: 20px;
+    height: 20px;
+    float: right;
+}
