@@ -110,7 +110,7 @@
         },
         methods: {
             get() {
-                this.$http.get('http://106.54.213.181/blog/article/getarticlelist').then(function (res) {
+                this.$http.get(SERVER_URL+'/article/getarticlelist').then(function (res) {
                     this.data = res.data.data;
                 }, function () {
                     console.log('请求失败处理');

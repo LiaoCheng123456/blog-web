@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="article.css">
+    <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="addArticle.css">
+    <script src="../../js/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+
+</head>
+<body>
+<!--标题-->
+<div id="container">
+    <div class="title_wrapper">
+        <input placeholder="请输入标题..." class="title_input" v-model="title">
+        <input type="button" value="提交" class="article_push" @click="addArticle" >
+    </div>
+
+    <!--内容-->
+    <div>
+        <textarea id="md_editor" placeholder="快速开始吧~" v-model="content"></textarea>
+    </div>
+</div>
+
+</body>
+<script>
+    var vue = new Vue({
+        el: "#container",
+        data: {
+            title:"默认标题",
+            content:"内容",
+            author:""
+        },
+        created() {
+            this.get();
+        },
+        methods:{
+            get(){
+                //发送get请求
+                this.$http.get('http://localhost:8888/article/getarticle?id=19113024802417').then(function(res){
+                    this.title = res.data.data.title;
+                    this.content = res.data.data.content;
+                },function() {
+                    console.log('请求失败处理');
+                });
+            },
+            addArticle() {
+                this.$http.post(
+                    "http://localhost:8888/article/addarticle",
+                    {
+                        title:this.title,
+                        content:this.content,
+                        author:1
+                    }
+                ).then(function () {
+                    this.get();
+                });
+            }
+        }
+    })
+</script>
+<script src="mditor.js"></script>
+<script type="text/javascript">
+    //获取textarea dom对象
+    var ele_textarea = document.getElementById('md_editor');
+    //实例化Mditor
+    var editor = new mditor(ele_textarea);
+</script>
+
+</html>

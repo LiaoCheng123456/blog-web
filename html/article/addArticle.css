@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.title_wrapper {
+    width: 100%;
+}
+.title_input{
+    width: 95%;
+    height: 40px;
+    font-size: 18px;
+    text-indent: 10px;
+    border: 0 solid black;
+    border-right: none;
+    outline:none;
+}
+.article_push{
+    width: 4.5%;
+    height: 40px;
+    line-height: 45px;
+    background: green;
+    outline:none;
+    color: white;
+    border: 0 solid black;
+
+}
+
